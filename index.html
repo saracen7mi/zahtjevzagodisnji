@@ -52,11 +52,15 @@
 
         .button-arena {
             position: relative;
-            height: 140px;
+            height: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 20px;
+            overflow: hidden;
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            background: #f1f5f9;
         }
 
         .btn-yes {
@@ -86,10 +90,12 @@
             border-radius: 6px;
             cursor: pointer;
             position: absolute;
-            right: 150px;
-            top: 45px;
-            transition: all 0.02s ease-out; /* Munjevita reakcija */
+            /* Početna fiksna pozicija unutar arene */
+            right: 30px;
+            top: 70px;
+            transition: all 0.05s ease-out;
             z-index: 20;
+            touch-action: none;
         }
 
         /* Kontrolna forma (skriva se pri štampi) */
@@ -289,12 +295,15 @@
         
         <!-- POČETNA ŠALJIVA STRANICA -->
         <div class="intro-screen" id="introScreen">
-            <h2>🏖️ Zahtjev za godišnji odmor <span style="font-size: 13px; color: #64748b; font-weight: normal;">(Powered by Lejla's Supreme Bureaucracy Matrix)</span></h2>
+            <h2>🏖️ Zahtjev za godišnji odmor <span style="font-size: 12px; color: #64748b; font-weight: normal;">(Powered by Lejla's Supreme Bureaucracy Matrix)</span></h2>
             <p>Jesi li siguran da hoćeš na odmor ili ćeš još malo raditi?</p>
             
             <div class="button-arena" id="buttonArena">
                 <button class="btn-yes" onclick="startApp()">Idem na odmor! 😎</button>
-                <button class="btn-no" id="btnNo" onmouseover="moveButton()" onclick="moveButton()">Ne da mi se 🏃‍♂️</button>
+                <!-- Korištenje touchstart i mouseenter da reaguje i na prst i na miša INSTANT -->
+                <button class="btn-no" id="btnNo" 
+                    onmouseenter="moveButton(event)" 
+                    ontouchstart="moveButton(event)">Ne da mi się 🏃‍♂️</button>
             </div>
         </div>
 
@@ -371,7 +380,7 @@
         <div id="documentView" style="display: none;">
             <div class="document-preview">
                 
-                <!-- Zaglavlje (Grb BiH lijevo, Viber grb INO desno) -->
+                <!-- Zaglavlje -->
                 <div class="doc-header">
                     <div class="left-side">
                         <img src="https://i.ibb.co/mdFSZbZ/Screenshot-2026-09-21-at-12-35-16.png" alt="Grb BiH">
@@ -513,19 +522,19 @@
     </div>
 
     <script>
-        // Funkcija za munjevito i bezbedno bježanje dugmeta "Ne da mi se" (bez sudara u centru)
-        function moveButton() {
+        // Pouzdana funkcija za bježanje na dodir i miša (sprečava klik)
+        function moveButton(e) {
+            if (e) {
+                e.preventDefault(); // Sprečava standardni klik/tap
+            }
             const btnNo = document.getElementById('btnNo');
             const arena = document.getElementById('buttonArena');
             
-            const maxX = arena.clientWidth - btnNo.clientWidth - 10;
-            const maxY = arena.clientHeight - btnNo.clientHeight - 10;
+            const maxX = arena.clientWidth - btnNo.clientWidth - 15;
+            const maxY = arena.clientHeight - btnNo.clientHeight - 15;
             
-            let randomX, randomY;
-            do {
-                randomX = Math.floor(Math.random() * Math.max(10, maxX));
-                randomY = Math.floor(Math.random() * Math.max(10, maxY));
-            } while (Math.abs(randomX - (arena.clientWidth / 2 - 50)) < 120);
+            let randomX = Math.floor(Math.random() * Math.max(10, maxX));
+            let randomY = Math.floor(Math.random() * Math.max(10, maxY));
             
             btnNo.style.left = randomX + 'px';
             btnNo.style.top = randomY + 'px';
@@ -601,3 +610,5 @@
             document.getElementById('controlPanel').style.display = 'block';
         }
     </script>
+</body>
+</html>
