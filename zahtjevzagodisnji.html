@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANEKS 1 - Zahtjev za korištenje godišnjeg odmora - INO BiH</title>
+    <style>
+        :root {
+            --primary: #111827;
+            --bg-body: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* POČETNA ŠALJIVA STRANICA */
+        .intro-screen {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .intro-screen h2 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .intro-screen p {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .button-arena {
+            position: relative;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .btn-yes {
+            background: #0d9488;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .btn-yes:hover {
+            background: #0f766e;
+        }
+
+        .btn-no {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            position: absolute;
+            right: 150px;
+            top: 45px;
+            transition: all 0.05s ease-out;
+            z-index: 20;
+        }
+
+        /* Kontrolna forma (skriva se pri štampi) */
+        .control-panel {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .control-panel h3 {
+            margin-top: 0;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .btn-generate {
+            background: #0d9488;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-generate:hover {
+            background: #0f766e;
+        }
+
+        /* DOKUMENT - ANEKS 1 (FORMALNI PAPIR) */
+        .document-preview {
+            background: #ffffff;
+            border: 1px solid #94a3b8;
+            padding: 40px 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-family: "Times New Roman", Times, serif;
+            color: #000000;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .doc-header img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .doc-header .left-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .doc-header .right-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .left-text, .right-text {
+            font-size: 10px;
+            line-height: 1.2;
+        }
+
+        .doc-subheader-line {
+            text-align: center;
+            font-size: 10px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .aneks-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .aneks-subtitle {
+            text-align: center;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .section-note {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        /* Tabele za Aneks 1 */
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .form-table th, .form-table td {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .form-table th {
+            background-color: #f1f5f9;
+            font-weight: bold;
+        }
+
+        .btn-print-action {
+            background: #2563eb;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn-print-action:hover {
+            background: #1d4ed8;
+        }
+
+        /* ŠTAMPA */
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+            .main-container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .intro-screen, .control-panel, .btn-print-action {
+                display: none !important;
+            }
+            .document-preview {
+                border: none;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <!-- POČETNA ŠALJIVA STRANICA -->
+        <div class="intro-screen" id="introScreen">
+            <h2>🏖️ Zahtjev za godišnji odmor (GitHub: zahtjevzagodisnji)</h2>
+            <p>Jesi li siguran da hoćeš na odmor ili ćeš još malo raditi?</p>
+            
+            <div class="button-arena" id="buttonArena">
+                <button class="btn-yes" onclick="startApp()">Idem na odmor! 😎</button>
+                <button class="btn-no" id="btnNo" onmouseover="moveButton()" onclick="moveButton()">Ne da mi se 🏃‍♂️</button>
+            </div>
+        </div>
+
+        <!-- KONTROLNA FORMA (SKRIVENA DOK SE NE KLIKNE) -->
+        <div class="control-panel" id="controlPanel" style="display: none;">
+            <h3>⚙️ Unos podataka za ANEKS 1</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ime i prezime:</label>
+                    <input type="text" id="inputName" value="Mirza Saračević" required>
+                </div>
+                <div class="form-group">
+                    <label>Sektor / Odjeljenje:</label>
+                    <input type="text" id="inputSector" value="Istražioc TU Sarajevo" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Status:</label>
+                    <input type="text" id="inputStatus" value="Zaposlenik">
+                </div>
+                <div class="form-group">
+                    <label>Datum predaje zahtjeva:</label>
+                    <input type="date" id="inputDate" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Vrsta dopusta:</label>
+                    <input type="text" id="inputDopust" value="Godišnji odmor">
+                </div>
+                <div class="form-group">
+                    <label>Način korištenja:</label>
+                    <select id="inputNačinKorištenja">
+                        <option value="cijelosti">Korištenje u cijelosti</option>
+                        <option value="dva_dijela">Korištenje u dva dijela</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Broj dana:</label>
+                    <input type="number" id="inputBrojDana" value="10">
+                </div>
+                <div class="form-group">
+                    <label>Prvi dan korištenja:</label>
+                    <input type="date" id="inputPrviDan">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Zadnji dan korištenja:</label>
+                    <input type="date" id="inputZadnjiDan">
+                </div>
+                <div class="form-group">
+                    <label>Dio odmora (ako je u dva dijela):</label>
+                    <select id="inputDioOdmora">
+                        <option value="Prvi dio godišnjeg odmora">Prvi dio godišnjeg odmora</option>
+                        <option value="Drugi dio godišnjeg odmora">Drugi dio godišnjeg odmora</option>
+                        <option value="Cijeli odmor">Cijeli odmor</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-generate" onclick="generateAneks1()">Generiši Aneks 1 🖨️</button>
+        </div>
+
+        <!-- PRIKAZ DOKUMENTA ANEKS 1 -->
+        <div id="documentView" style="display: none;">
+            <div class="document-preview">
+                
+                <!-- Zaglavlje (Grb BiH lijevo, Viber grb INO desno) -->
+                <div class="doc-header">
+                    <div class="left-side">
+                        <img src="https://i.ibb.co/mdFSZbZ/Screenshot-2026-09-21-at-12-35-16.png" alt="Grb BiH">
+                        <div class="left-text">
+                            Bosna i Hercegovina<br>
+                            Босна и Херцеговина<br>
+                            Bosnia and Herzegovina
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <div class="right-text">
+                            Institut za nestale osobe BiH<br>
+                            Институт за нестала лица БиХ<br>
+                            Missing Persons Institute
+                        </div>
+                        <img src="https://i.ibb.co/6RLB7zc5/ino.png" alt="Grb INO BiH Viber">
+                    </div>
+                </div>
+
+                <div class="doc-subheader-line">
+                    Sarajevo, Ul. Obala Kulina bana 2 Telefon: 033-246-530 Fax: 033-246-551 e-mail: info@ino.ba
+                </div>
+
+                <div class="aneks-title">ANEKS 1</div>
+                <div class="aneks-subtitle">Obrazac zahtjeva za korištenje godišnjeg odmora</div>
+
+                <div class="section-note">ZAPOSLENIK TREBA POPUNITI OVAJ DIO</div>
+                
+                <table class="form-table">
+                    <tr>
+                        <td style="width: 50%;"><strong>Ime i prezime:</strong> <span id="resName"></span></td>
+                        <td style="width: 50%;"><strong>Potpis:</strong> <br><br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Sektor/Odjeljenje:</strong> <span id="resSector"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Status:</strong> <span id="resStatus"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Datum predaje zahtjeva:</strong> <span id="resDate"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Vrsta dopusta:</strong> <span id="resDopust"></span></td>
+                    </tr>
+                </table>
+
+                <table class="form-table">
+                    <tr>
+                        <th style="width: 30%;">Broj dana</th>
+                        <th style="width: 35%;">Prvi dan korištenja</th>
+                        <th style="width: 35%;">Zadnji dan korištenja</th>
+                    </tr>
+                    <tr>
+                        <td>Korištenje u cijelosti <span id="k-cijelo"></span></td>
+                        <td><span id="d-prvi-cijelo"></span></td>
+                        <td><span id="d-zadnji-cijelo"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Korištenje u dva dijela</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>- Prvi dio godišnjeg odmora <span id="k-dio1"></span></td>
+                        <td><span id="d-prvi-1"></span></td>
+                        <td><span id="d-zadnji-1"></span></td>
+                    </tr>
+                    <tr>
+                        <td>- Drugi dio godišnjeg odmora <span id="k-dio2"></span></td>
+                        <td><span id="d-prvi-2"></span></td>
+                        <td><span id="d-zadnji-2"></span></td>
+                    </tr>
+                </table>
+
+                <div class="section-note" style="margin-top: 15px;">Odobrava</div>
+                
+                <table class="form-table">
+                    <tr>
+                        <td style="width: 60%; height: 35px;">Neposredni rukovodilac</td>
+                        <td style="width: 40%;" rowspan="3">Datum: <br><br><br></td>
+                    </tr>
+                    <tr>
+                        <td style="height: 35px;">Ministar/zamjenik ministra</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 35px;">Predsjedavajući/zamjenik predsjedavajućeg Vijeća ministara</td>
+                    </tr>
+                </table>
+
+                <div class="section-note" style="margin-top: 15px; font-size: 10px;">NE POPUNJAVATI (SAMO ZA NADLEŽNI SEKTOR)</div>
+
+                <table class="form-table" style="font-size: 11px;">
+                    <tr>
+                        <td rowspan="2" style="width: 33%;">Trenutačno raspoloživo</td>
+                        <td style="width: 33%;">Prošlogodišnji</td>
+                        <td rowspan="2" style="width: 34%;">Potvrđeno.<br>Sektor za opće i pravne poslove</td>
+                    </tr>
+                    <tr>
+                        <td>Za tekuću godinu</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table style="width: 100%; border: none; border-collapse: collapse;">
+                                <tr>
+                                    <th style="border: 1px solid #000; font-size: 10px;">Korišteno do sad</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #000; font-size: 10px;">Prošlogodišnji | Za tekuću godinu</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table style="width: 100%; border: none; border-collapse: collapse;">
+                                <tr>
+                                    <th style="border: 1px solid #000; font-size: 10px;">Preostaje (balans)</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #000; font-size: 10px;">Prošlogodišnji | Za tekuću godinu</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="form-table" style="margin-top: 10px;">
+                    <tr>
+                        <td style="width: 50%; height: 40px; vertical-align: bottom;">Potpis: ____________________</td>
+                        <td style="width: 50%; height: 40px; vertical-align: bottom;">Odgovorni u Službi za kadrovske poslove</td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <button class="btn-print-action" onclick="window.print()">🖨️ Štampaj ili sačuvaj u PDF formatu</button>
+            <button class="btn-print-action" style="background: #475569; margin-top: 10px;" onclick="backToEdit()">← Vrati se na izmjenu podataka</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Funkcija za bježanje dugmeta "Ne da mi se"
+        function moveButton() {
+            const btnNo = document.getElementById('btnNo');
+            const arena = document.getElementById('buttonArena');
+            
+            const maxX = arena.clientWidth - btnNo.clientWidth - 10;
+            const maxY = arena.clientHeight - btnNo.clientHeight - 10;
+            
+            const randomX = Math.floor(Math.random() * Math.max(10, maxX));
+            const randomY = Math.floor(Math.random() * Math.max(10, maxY));
+            
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+            btnNo.style.right = 'auto';
+        }
+
+        function startApp() {
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('controlPanel').style.display = 'block';
+        }
+
+        function generateAneks1() {
+            const nameVal = document.getElementById('inputName').value;
+            const sectorVal = document.getElementById('inputSector').value;
+            const statusVal = document.getElementById('inputStatus').value;
+            const dateVal = document.getElementById('inputDate').value;
+            const dopustVal = document.getElementById('inputDopust').value;
+            const nacinVal = document.getElementById('inputNačinKorištenja').value;
+            const brojDanaVal = document.getElementById('inputBrojDana').value;
+            const prviDanVal = document.getElementById('inputPrviDan').value;
+            const zadnjiDanVal = document.getElementById('inputZadnjiDan').value;
+            const dioOdmoraVal = document.getElementById('inputDioOdmora').value;
+
+            if(!nameVal || !dateVal) {
+                alert("Molimo Vas da unesete ime i datum!");
+                return;
+            }
+
+            function fmtDate(d) {
+                if(!d) return "__________";
+                const p = d.split('-');
+                return p[2] + '.' + p[1] + '.' + p[0];
+            }
+
+            document.getElementById('resName').innerText = nameVal;
+            document.getElementById('resSector').innerText = sectorVal;
+            document.getElementById('resStatus').innerText = statusVal;
+            document.getElementById('resDate').innerText = fmtDate(dateVal);
+            document.getElementById('resDopust').innerText = dopustVal;
+
+            document.getElementById('k-cijelo').innerText = "";
+            document.getElementById('k-dio1').innerText = "";
+            document.getElementById('k-dio2').innerText = "";
+            document.getElementById('d-prvi-cijelo').innerText = "";
+            document.getElementById('d-zadnji-cijelo').innerText = "";
+            document.getElementById('d-prvi-1').innerText = "";
+            document.getElementById('d-zadnji-1').innerText = "";
+            document.getElementById('d-prvi-2').innerText = "";
+            document.getElementById('d-zadnji-2').innerText = "";
+
+            if(nacinVal === 'cijelosti') {
+                document.getElementById('k-cijelo').innerText = "( X ) " + brojDanaVal + " dana";
+                document.getElementById('d-prvi-cijelo').innerText = fmtDate(prviDanVal);
+                document.getElementById('d-zadnji-cijelo').innerText = fmtDate(zadnjiDanVal);
+            } else {
+                if(dioOdmoraVal.includes('Prvi')) {
+                    document.getElementById('k-dio1').innerText = "( X ) " + brojDanaVal + " dana";
+                    document.getElementById('d-prvi-1').innerText = fmtDate(prviDanVal);
+                    document.getElementById('d-zadnji-1').innerText = fmtDate(zadnjiDanVal);
+                } else {
+                    document.getElementById('k-dio2').innerText = "( X ) " + brojDanaVal + " dana";
+                    document.getElementById('d-prvi-2').innerText = fmtDate(prviDanVal);
+                    document.getElementById('d-zadnji-2').innerText = fmtDate(zadnjiDanVal);
+                }
+            }
+
+            document.getElementById('controlPanel').style.display = 'none';
+            document.getElementById('documentView').style.display = 'block';
+        }
+
+        function backToEdit() {
+            document.getElementById('documentView').style.display = 'none';
+            document.getElementById('controlPanel').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
