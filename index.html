@@ -47,20 +47,22 @@
         .intro-screen p {
             color: #64748b;
             font-size: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .button-arena {
             position: relative;
-            height: 200px;
+            height: 220px;
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            gap: 20px;
             overflow: hidden;
             border: 1px dashed #cbd5e1;
             border-radius: 8px;
             background: #f1f5f9;
-            padding: 0 40px;
+            padding: 20px;
         }
 
         .btn-yes {
@@ -84,15 +86,12 @@
             background: #ef4444;
             color: white;
             border: none;
-            padding: 14px 28px;
-            font-size: 16px;
+            padding: 12px 24px;
+            font-size: 15px;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            position: absolute;
-            /* Početna pozicija pomjerena desno da se ne preklapaju */
-            right: 40px;
-            top: 75px;
+            position: relative; /* Prvo stoji uredno ispod u svom redu */
             transition: all 0.05s ease-out;
             z-index: 20;
             touch-action: none;
@@ -521,7 +520,7 @@
     </div>
 
     <script>
-        // Funkcija za bježanje na dodir i miša
+        // Funkcija za bježanje iz donjeg reda
         function moveButton(e) {
             if (e) {
                 e.preventDefault();
@@ -529,15 +528,17 @@
             const btnNo = document.getElementById('btnNo');
             const arena = document.getElementById('buttonArena');
             
-            const maxX = arena.clientWidth - btnNo.clientWidth - 15;
-            const maxY = arena.clientHeight - btnNo.clientHeight - 15;
+            // Prelazi na apsolutnu poziciju tek kad ga prvi put pokuša dotaknuti
+            btnNo.style.position = 'absolute';
+
+            const maxX = arena.clientWidth - btnNo.clientWidth - 20;
+            const maxY = arena.clientHeight - btnNo.clientHeight - 20;
             
             let randomX = Math.floor(Math.random() * Math.max(10, maxX));
             let randomY = Math.floor(Math.random() * Math.max(10, maxY));
             
             btnNo.style.left = randomX + 'px';
             btnNo.style.top = randomY + 'px';
-            btnNo.style.right = 'auto';
         }
 
         function startApp() {
