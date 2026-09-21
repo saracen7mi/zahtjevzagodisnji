@@ -88,7 +88,7 @@
             position: absolute;
             right: 150px;
             top: 45px;
-            transition: all 0.05s ease-out;
+            transition: all 0.02s ease-out; /* Munjevita reakcija */
             z-index: 20;
         }
 
@@ -289,7 +289,7 @@
         
         <!-- POČETNA ŠALJIVA STRANICA -->
         <div class="intro-screen" id="introScreen">
-            <h2>🏖️ Zahtjev za godišnji odmor (Powered by Lejla's Supreme Bureaucracy Matrix)</h2>
+            <h2>🏖️ Zahtjev za godišnji odmor <span style="font-size: 13px; color: #64748b; font-weight: normal;">(Powered by Lejla's Supreme Bureaucracy Matrix)</span></h2>
             <p>Jesi li siguran da hoćeš na odmor ili ćeš još malo raditi?</p>
             
             <div class="button-arena" id="buttonArena">
@@ -513,7 +513,7 @@
     </div>
 
     <script>
-        // Funkcija za bježanje dugmeta "Ne da mi se"
+        // Funkcija za munjevito i bezbedno bježanje dugmeta "Ne da mi se" (bez sudara u centru)
         function moveButton() {
             const btnNo = document.getElementById('btnNo');
             const arena = document.getElementById('buttonArena');
@@ -521,8 +521,11 @@
             const maxX = arena.clientWidth - btnNo.clientWidth - 10;
             const maxY = arena.clientHeight - btnNo.clientHeight - 10;
             
-            const randomX = Math.floor(Math.random() * Math.max(10, maxX));
-            const randomY = Math.floor(Math.random() * Math.max(10, maxY));
+            let randomX, randomY;
+            do {
+                randomX = Math.floor(Math.random() * Math.max(10, maxX));
+                randomY = Math.floor(Math.random() * Math.max(10, maxY));
+            } while (Math.abs(randomX - (arena.clientWidth / 2 - 50)) < 120);
             
             btnNo.style.left = randomX + 'px';
             btnNo.style.top = randomY + 'px';
